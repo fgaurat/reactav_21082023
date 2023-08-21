@@ -1,0 +1,68 @@
+import TodoRow from "./TodoRow"
+import useFetchTodos from "../../hooks/useFetchTodos";
+import { Todo } from "../../core/Todo";
+import { TodoDAO } from "../../core/TodoDAO";
+import useDeleteTodos from "../../hooks/useDeleteTodos";
+
+
+
+export default function TodoList() {
+  
+  const {todos, setTodos,loading} = useFetchTodos();
+  const { deleteTodo,loading:loadingDelete} = useDeleteTodos()
+
+  if (loading){
+    return <>Loading ...</>
+  }
+  if (loadingDelete){
+    console.log("loadingDelete")
+    return <>Loading delete ...</>
+  }
+  
+  const doDelete = async (todo:Todo)=>{
+    await deleteTodo(todo)
+    const t = todos.filter(o => o.id !== todo.id)
+    setTodos(t)
+
+  }
+
+  return (
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="sm:flex sm:items-center">
+        <div className="sm:flex-auto">
+          <h1 className="text-base font-semibold leading-6 text-gray-900">TodoList</h1>
+        </div>
+
+      </div>
+      <div className="mt-8 flow-root">
+        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <table className="min-w-full divide-y divide-gray-300">
+              <thead>
+                <tr>
+                  <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                    #
+                  </th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Title
+                  </th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Completed
+                  </th>
+                  <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                    <span className="sr-only">Edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {todos.map((todo) => (
+                  <TodoRow todo={todo} doDelete={doDelete} key={todo.id}/>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
