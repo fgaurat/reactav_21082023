@@ -1,11 +1,17 @@
 import TodoRow from "./TodoRow"
-import { Todo } from "../../core/Todo";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
+import { useEffect } from "react";
+import { fetchTodoList } from "../../slices/todosSlices";
 
 
 export default function TodoList() {
   const todos = useSelector((state: RootState) => state.todoList.todos)
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(()=>{
+    dispatch(fetchTodoList())
+  },[dispatch])
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
