@@ -6,7 +6,7 @@ interface TodoRowProps {
   doDelete: (todo: Todo) => void;
 }
 
-function TodoRow({ todo }: TodoRowProps) {
+function TodoRow({ todo,doDelete }: TodoRowProps) {
   
   return (
     <tr>
@@ -22,7 +22,7 @@ function TodoRow({ todo }: TodoRowProps) {
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
         <button
           className="text-red-600 hover:text-red-900"
-          onClick={() => console.log(todo)}
+          onClick={()=>doDelete(todo)}
         >
           Delete<span className="sr-only">, {todo.title}</span>
         </button>
