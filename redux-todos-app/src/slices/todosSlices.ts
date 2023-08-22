@@ -29,6 +29,15 @@ export const deleteTodo = createAsyncThunk(
   }
 )
 
+export const saveTodo = createAsyncThunk(
+  "todos/saveTodo",
+  async (todo:Todo)=>{
+    const dao = new TodoDAO()
+    const savedTodo = await dao.save(todo)
+    return savedTodo;    
+  }
+)
+
 export const todoSlice = createSlice({
   name: "todoList",
   initialState,
@@ -39,6 +48,9 @@ export const todoSlice = createSlice({
     },
     [deleteTodo.fulfilled.type]:(state,action)=>{
       state.todos = state.todos.filter(t => t.id !== action.payload.id) 
+    },
+    [saveTodo.fulfilled.type]:(state,action)=>{
+      state.todos.push(action.payload)
     },
   },
 });
