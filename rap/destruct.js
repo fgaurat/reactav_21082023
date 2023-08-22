@@ -11,6 +11,11 @@ console.log(c)
 
 const r = { id:1, title: `Todo 1`, completed: false }
 
+// r.id = 2
+
+
+// r = {title:"truc"}
+
 const {title,...o} = r
 
 console.log(title)
@@ -32,3 +37,5 @@ function f({id,...o}){
 
 
 f(r)
+
+

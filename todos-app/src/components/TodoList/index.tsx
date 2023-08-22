@@ -1,30 +1,15 @@
 import TodoRow from "./TodoRow"
-import useFetchTodos from "../../hooks/useFetchTodos";
 import { Todo } from "../../core/Todo";
-import { TodoDAO } from "../../core/TodoDAO";
-import useDeleteTodos from "../../hooks/useDeleteTodos";
 
 
+interface TodoListProps{
+  todos:Todo[]
+  doDelete:(t:Todo)=>void
+}
 
-export default function TodoList() {
+
+export default function TodoList({todos,doDelete}:TodoListProps) {
   
-  const {todos, setTodos,loading} = useFetchTodos();
-  const { deleteTodo,loading:loadingDelete} = useDeleteTodos()
-
-  if (loading){
-    return <>Loading ...</>
-  }
-  if (loadingDelete){
-    console.log("loadingDelete")
-    return <>Loading delete ...</>
-  }
-  
-  const doDelete = async (todo:Todo)=>{
-    await deleteTodo(todo)
-    const t = todos.filter(o => o.id !== todo.id)
-    setTodos(t)
-
-  }
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">

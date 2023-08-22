@@ -1,7 +1,13 @@
-import { Fragment } from 'react'
+import { FormEvent, Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import TodoList from '../../components/TodoList'
+import TodoForm from '../../components/TodoForm'
+import useFetchTodos from '../../hooks/useFetchTodos'
+import useDeleteTodos from '../../hooks/useDeleteTodos'
+import { Todo } from '../../core/Todo'
+import { TodoDAO } from '../../core/TodoDAO'
+import useSaveTodo from '../../hooks/useSaveTodo'
 
 const user = {
   name: 'Tom Cook',
@@ -26,6 +32,39 @@ function classNames(...classes) {
 }
 
 export default function Home() {
+
+
+
+  const {todos, setTodos,loading} = useFetchTodos();
+  const { deleteTodo,loading:loadingDelete} = useDeleteTodos()
+  const { saveTodo,loading:loadingSave} = useSaveTodo()
+
+  if (loading){
+    return <>Loading ...</>
+  }
+  if (loadingDelete){
+    return <>Loading delete ...</>
+  }
+  if (loadingSave){
+    return <>Loading save ...</>
+  }
+  
+  const doDelete = async (todo:Todo)=>{
+    await deleteTodo(todo)
+    const t = todos.filter(o => o.id !== todo.id)
+    setTodos(t)
+
+  }
+
+  const handleOnSubmit = async (todo:Todo)=>{
+    const savedTodo = await saveTodo(todo)
+    if(savedTodo){
+      setTodos([...todos,savedTodo])
+    }
+    // ? => facultatif 
+    // ! => ok pendant le runtime
+}
+
   return (
     <>
       <div className="min-h-full">
@@ -191,10 +230,9 @@ export default function Home() {
           </header>
           <main>
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-
-            <TodoList/>
-
-
+            <TodoForm handleOnSubmit={handleOnSubmit}/>
+            <hr />
+            <TodoList todos={todos} doDelete={doDelete}/>
             </div>
           </main>
         </div>

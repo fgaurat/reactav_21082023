@@ -14,11 +14,7 @@ export default function useDeleteTodos(){
         dao.delete(todo)
         .catch(setError)
         .finally(() => setLoading(false));
-
     }
-
-
-
     
     return { deleteTodo,loading,error}
 }
