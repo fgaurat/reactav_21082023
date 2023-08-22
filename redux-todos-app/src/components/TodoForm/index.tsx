@@ -1,10 +1,16 @@
 import React, { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { saveTodo } from "../../slices/todosSlices";
+import { AppDispatch } from "../../app/store";
 
-function TodoForm({handleOnSubmit}) {
+function TodoForm() {
+    const dispatch = useDispatch<AppDispatch>()
+
     const initialState = {
         title:"Le titre de la todo",
         completed:true
     }
+    
     const [formState,setFormState] =useState(initialState)
 
     const handleOnChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
@@ -18,17 +24,17 @@ function TodoForm({handleOnSubmit}) {
 
     }
 
-    const saveTodo = (e:FormEvent)=>{
+    const onSaveTodo = (e:FormEvent)=>{
         e.preventDefault()
         console.log(formState)
-        handleOnSubmit(formState)
+        dispatch(saveTodo(formState))
     }
 
   return (
     <>
       <h2>TodoForm</h2>
 
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={saveTodo}>
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={onSaveTodo}>
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

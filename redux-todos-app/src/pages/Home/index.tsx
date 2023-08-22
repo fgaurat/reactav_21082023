@@ -2,6 +2,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import TodoList from '../../components/TodoList'
 import { Fragment } from 'react'
+import TodoForm from '../../components/TodoForm'
 
 const user = {
   name: 'Tom Cook',
@@ -192,6 +193,7 @@ export default function Home() {
           </header>
           <main>
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <TodoForm/>
             <hr />
             <TodoList/>
             </div>
