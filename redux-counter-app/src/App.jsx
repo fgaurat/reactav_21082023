@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from './features/counter/counterSlice'
+import { decrement, increment, incrementByAmount, reset } from './features/counter/counterSlice'
 
 function App() {
   
@@ -16,12 +16,24 @@ function App() {
         >
           Increment
         </button>
+        <button
+          aria-label="Increment by 2"
+          onClick={() => dispatch(incrementByAmount(2))}
+        >
+          Increment by 2
+        </button>
         <span>{count}</span>
         <button
           aria-label="Decrement value"
           onClick={() => dispatch(decrement())}
         >
           Decrement
+        </button>
+        <button
+          aria-label="Reset value"
+          onClick={() => dispatch(reset())}
+        >
+          Reset
         </button>
       </div>
     </>
