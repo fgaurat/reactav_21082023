@@ -1,9 +1,11 @@
 import TodoRow from "./TodoRow"
 import { Todo } from "../../core/Todo";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 
 export default function TodoList() {
-  
+  const todos = useSelector((state: RootState) => state.todoList.todos)
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -35,7 +37,7 @@ export default function TodoList() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {todos.map((todo) => (
-                  <TodoRow todo={todo} doDelete={doDelete} key={todo.id}/>
+                  <TodoRow todo={todo} key={todo.id}/>
                 ))}
               </tbody>
             </table>
