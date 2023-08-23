@@ -55,31 +55,19 @@
       "completed": false
     },
     {
-      "userId": 2,
-      "id": 22,
-      "title": "distinctio vitae autem nihil ut molestias quo",
-      "completed": true
+      "title": "test",
+      "completed": false,
+      "id": 22
     },
     {
-      "userId": 2,
-      "id": 23,
-      "title": "et itaque necessitatibus maxime molestiae qui quas velit",
-      "completed": false
+      "title": "yrytryrt",
+      "completed": false,
+      "id": 23
     },
     {
-      "title": "Le titre de la todo",
-      "completed": true,
+      "title": "fdsfsdfds",
+      "completed": false,
       "id": 24
-    },
-    {
-      "title": "Le titre de la todo fsdfsdfsd",
-      "completed": true,
-      "id": 25
-    },
-    {
-      "title": "Le titre de la todo",
-      "completed": true,
-      "id": 26
     }
   ]
 }
