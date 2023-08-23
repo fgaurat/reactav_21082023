@@ -11,8 +11,8 @@ function PureComponent01({value}) {
   )
 }
 
-const p = React.memo(PureComponent01)
-export default p
+PureComponent01 = React.memo(PureComponent01)
+export  {PureComponent01}
 
 // const PureComponent01 = React.memo(function PureComponent01({value}) {
 
@@ -26,3 +26,19 @@ export default p
 // })
 
 // export default PureComponent01
+
+
+
+
+function PureComponent02({onClick}) {
+    console.log("render PureComponent02")
+  return (
+    <>
+    <h2>PureComponent02</h2>
+    <button onClick={onClick}>Click </button>
+    </>
+  )
+}
+
+PureComponent02 = React.memo(PureComponent02)
+export  {PureComponent02}
