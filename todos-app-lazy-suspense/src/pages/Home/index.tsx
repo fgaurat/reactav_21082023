@@ -1,4 +1,4 @@
-import { Fragment, lazy } from 'react'
+import { Fragment, Suspense, lazy } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
@@ -12,6 +12,7 @@ import useFetchTodos from '../../hooks/useFetchTodos'
 import useDeleteTodos from '../../hooks/useDeleteTodos'
 import { Todo } from '../../core/Todo'
 import useSaveTodo from '../../hooks/useSaveTodo'
+import Spinner from '../../components/Spinner';
 
 
 const user = {
@@ -235,9 +236,13 @@ export default function Home() {
           </header>
           <main>
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <TodoForm handleOnSubmit={handleOnSubmit}/>
+              <Suspense fallback={<Spinner/>}>
+                <TodoForm handleOnSubmit={handleOnSubmit}/>
+              </Suspense>
             <hr />
-            <TodoList todos={todos} doDelete={doDelete}/>
+            <Suspense fallback={<Spinner/>}>
+              <TodoList todos={todos} doDelete={doDelete}/>
+            </Suspense>
             </div>
           </main>
         </div>
