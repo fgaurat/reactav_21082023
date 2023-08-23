@@ -8,6 +8,8 @@ interface TodoListState {
 
 const initialState: TodoListState = {
   todos: [],
+  errors:"",
+  loading:false
 };
 
 export const fetchTodoList = createAsyncThunk(
@@ -41,7 +43,11 @@ export const saveTodo = createAsyncThunk(
 export const todoSlice = createSlice({
   name: "todoList",
   initialState,
-  reducers: {},
+  reducers: {
+
+
+    
+  },
   extraReducers: {
     [fetchTodoList.fulfilled.type]:(state,action)=>{
       state.todos = action.payload
@@ -50,7 +56,14 @@ export const todoSlice = createSlice({
       state.todos = state.todos.filter(t => t.id !== action.payload.id) 
     },
     [saveTodo.fulfilled.type]:(state,action)=>{
+      state.loading=false
       state.todos.push(action.payload)
+    },
+    [saveTodo.rejected.type]:(state,action)=>{
+      state.errors = "Erreur"
+    },
+    [saveTodo.pending.type]:(state,action)=>{
+      state.loading=true
     },
   },
 });
